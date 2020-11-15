@@ -1,0 +1,28 @@
+#no-mobile {
+  position: fixed;
+  z-index: 99;
+  height: 100vh;
+  background-color: #F9E000;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  top: 0;
+  left:0;
+  overflow:hidden;
+}
+
+#chat-screen{
+	overflow:hidden;
+}
+@media screen and (max-width: 650px) {
+  #no-mobile {
+    display: none;
+    overflow:auto;
+  }
+  #chat-screen{
+  	overflow:auto;
+  }
+  
+}
