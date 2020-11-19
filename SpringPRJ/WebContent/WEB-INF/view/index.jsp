@@ -12,39 +12,51 @@
     <meta name="google-signin-clientSecret" content="ddd_AQLZ7DMwIkjwVeo4UpNi">
     <!-- gauth 로직 -->
     <script>
+    	var cnt = 0;
 	    function checkLoginStatus() {
-				var gauthParser = document.querySelector('#gauthParser');
+			var gauthLoginState = document.querySelector('#gauthLoginState');
+			cnt++;
 	  		if(gauth.isSignedIn.get()){
+	  			gauthLoginState.value = 'Login';
 	  			console.log('signed');
-	  			gauthParser.value = 'Logout';
-	  			profile = gauth.currentUser.get().getBasicProfile()
+	  			/* 로그인 정보 객체화 */
+	  			googleUser = gauth.currentUser.get();
+	  			profile = googleUser.getBasicProfile();
+	  			//var id_token = googleUser.getAuthResponse().id_token; //id 토큰
 		    	console.log('name? ' + profile.getName());
-	  			console.log('moving to chat page');
-	  			// 값 전달 //
-	  			//폼만들기
-	  			var form = document.createElement('form');
-		        form.setAttribute('method', 'post'); 
-		        form.setAttribute('action', 'http://localhost:8080/user/usergauthProc.do');
-		        //params
-		        var params = {'user_email': profile.getEmail(),
-			                'user_pw': 'gauthUser',
-			                'user_id': profile.getId(),
-			                'user_name': profile.getName(),
-			                'user_Image': profile.getImageUrl(),
-			                'user_isGUser': 'yes'};
-		        //삽입,전송
-		        for (var p in params) {
-		            var input = document.createElement('input');
-		            input.setAttribute('type', 'hidden');
-		            input.setAttribute('name', p);
-		            input.setAttribute('value', params[p]);
-		            form.appendChild(input);
-		          }
-		        document.body.appendChild(form);
-		        form.submit();
+		    	console.log('cnt???' + cnt);
+	  			if(gauthLoginState.value == 'Login'){
+	  				console.log("자동인증됨")
+	  				if(cnt>2){// 자동 이동 막기 //
+			  			/* 값 전달 */
+			  			// 폼만들기
+			  			var form = document.createElement('form');
+				        form.setAttribute('method', 'post'); 
+				        form.setAttribute('action', 'http://localhost:8080/user/usergauthProc.do');
+				        //params
+				        var params = {'user_email': profile.getEmail(),
+					                'user_pw': 'gauthUser',
+					                'user_id': profile.getId(),
+					                'user_name': profile.getName(),
+					                'user_Image': profile.getImageUrl(),
+					                'user_isGUser': 'yes'};
+				        /* 삽입,전송 */
+				        for (var p in params) {
+				            var input = document.createElement('input');
+				            input.setAttribute('type', 'hidden');
+				            input.setAttribute('name', p);
+				            input.setAttribute('value', params[p]);
+				            form.appendChild(input);
+				          }
+				        document.body.appendChild(form);
+				        console.log('moving to chat page');
+				      //gapi.auth2.getAuthInstance().disconnect(); //연결 끊기
+				        form.submit();
+		  			}
+	  			}
 	  		}else{
 	  			console.log('not signed');
-	  			gauthParser.value = 'Login';
+	  			gauthLoginState.value = 'Logout';
 	  		}
 		}
 	    function init() {
@@ -65,7 +77,7 @@
 	  	} 
     </script>
     <style>
-     #gauthParser{
+     #gauthLoginState{
      	display:none;
      }
      .gooContainer{
@@ -103,7 +115,7 @@
         <input type="text" name="user_email" placeholder="Email"/>
         <input type="password" name="user_pw" placeholder="Password"/>
         <input type="submit" value="Log In" style="background-color:#F9AC3A; cursor:pointer"/>
-        <input type="button" value="Sign In" onclick="location.href='/user/userSignin.do'" style="background-color:#CD5604;cursor:pointer"/>
+        <input type="button" value="Sign In" data-onload="location.href='/user/userSignin.do'" style="background-color:#CD5604;cursor:pointer"/>
         <div class="gooContainer">
 	        <!-- gauth 버튼, gauth 체크용 hidden 버튼 -->
 	        <div class="g-signin2" data-onsuccess="checkLoginStatus" data-theme="dark"></div>
@@ -111,7 +123,7 @@
         </div>
     </form>
     
-    	<form action="/user/usergauthLoginProc.do" method="post" id="gauthParser" value="Logout">
+    	<form action="/user/usergauthLoginProc.do" method="post" id="gauthLoginState" value="Logout">
 	    	<input type="hidden" name="user_email" />
 	    	<input type="hidden" name="user_pw" />
 	    </form>

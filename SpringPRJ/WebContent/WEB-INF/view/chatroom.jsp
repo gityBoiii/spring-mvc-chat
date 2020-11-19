@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String SS_ROOM_NAME = CmmUtil.nvl((String)session.getAttribute("SS_ROOM_NAME"));
-	String SS_USER_NO = CmmUtil.nvl((String)session.getAttribute("SS_USER_NO"));
+	String SS_USER_NAME = CmmUtil.nvl((String)session.getAttribute("SS_USER_NAME"));
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,9 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat</title>
     <script type="text/javascript">
-    	var SS_USER_NO = '<%=SS_USER_NO%>';
+    	var SS_USER_NAME = '<%=SS_USER_NAME%>';
     	$(window).on('load',function() {
-    		
     		getAllMsg();
     		setInterval('getAllMsg()',500);
     		
@@ -43,20 +42,6 @@
     					window.scrollTo(0,scollheight);
     				}
     			})
-    		});
-    		
-    		$('.apparatusWrap').hover(
-    				function(){
-    					$('.apparatusWrap').removeClass("far");
-    					$('.apparatusWrap').removeClass("fa-smile-wink");
-    					$('.apparatusWrap').addClass("fas");
-    					$('.apparatusWrap').addClass("fa-grin-squint-tears");
-    				},                  
-    				function(){
-    					$('.apparatusWrap').addClass("far");
-    					$('.apparatusWrap').addClass("fa-smile-wink");
-    					$('.apparatusWrap').removeClass("fas");
-    					$('.apparatusWrap').removeClass("fa-grin-squint-tears");
     		});
     		
     	});
@@ -92,7 +77,7 @@
 					if(json[i].type == "admin"){
 						msgResult+= json[i].msg+'<br/><br/>';
 						
-					} else if(json[i].user_no != SS_USER_NO){
+					} else if(json[i].user_name != SS_USER_NAME){
 						msgResult += "<div class='message-row'>";
 						msgResult += 	"<img src='/img/basic.jpg'/>";
 						msgResult += 	"<div class='message-row__content'>";
@@ -138,65 +123,70 @@
 		    border-radius: 25px;
 		    margin-left: 10px;
     	}
-    	/*### 버튼 양식 ###*/
-		/* Popup container - can be anything you want */
-		.popup {
-		  position: relative;
-		  display: inline-block;
-		  cursor: pointer;
-		  -webkit-user-select: none;
-		  -moz-user-select: none;
-		  -ms-user-select: none;
-		  user-select: none;
-		}
-		/* The actual popup */
-		.popup .popuptext {
-		  visibility: hidden;
-		  width: 160px;
-		  background-color: #555;
-		  color: #fff;
-		  text-align: center;
-		  border-radius: 6px;
-		  padding: 8px 0;
-		  position: absolute;
-		  z-index: 1;
-		  bottom: 125%;
-		  left: 50%;
-		  margin-left: -80px;
-		  
-		}
-		
-		/*### 삼각형 ###*/
-		/* Popup arrow */
-		.popup .popuptext::after {
-		  content: "";
-		  position: absolute;
-		  top: 100%;
-		  left: 50%;
-		  margin-left: -5px;
-		  border-width: 5px;
-		  border-style: solid;
-		  border-color: #555 transparent transparent transparent;
-		}
-		
-		/*### 보이기 ###*/
-		/* Toggle this class - hide and show the popup */
-		.popup .show {
-		  visibility: visible;
-		  -webkit-animation: fadeIn 1s;
-		  animation: fadeIn 1s;
-		}
-		/*### 애니메이션 ###*/
-		/* Add animation (fade in the popup) */
-		@-webkit-keyframes fadeIn {
-		  from {opacity: 0;} 
-		  to {opacity: 1;}
-		}
-		@keyframes fadeIn {
-		  from {opacity: 0;}
-		  to {opacity:1 ;}
-		}
+    	
+    	
+    /*### 버튼 양식 ###*/
+	/* Popup container - can be anything you want */
+	.popup {
+	  position: relative;
+	  display: inline-block;
+	  cursor: pointer;
+	  -webkit-user-select: none;
+	  -moz-user-select: none;
+	  -ms-user-select: none;
+	  user-select: none;
+	}
+	/* The actual popup */
+	.popup .popuptext {
+	  visibility: hidden;
+	  width: 160px;
+	  background-color: #555;
+	  color: #fff;
+	  text-align: center;
+	  border-radius: 6px;
+	  padding: 8px 0;
+	  position: absolute;
+	  z-index: 1;
+	  bottom: 125%;
+	  left: 50%;
+	  margin-left: -80px;
+	  
+	}
+	
+	/*### 삼각형 ###*/
+	/* Popup arrow */
+	.popup .popuptext::after {
+	  content: "";
+	  position: absolute;
+	  top: 100%;
+	  left: 50%;
+	  margin-left: -5px;
+	  border-width: 5px;
+	  border-style: solid;
+	  border-color: #555 transparent transparent transparent;
+	}
+	
+	/*### 보이기 ###*/
+	/* Toggle this class - hide and show the popup */
+	.popup .show {
+	  visibility: visible;
+	  -webkit-animation: fadeIn 1s;
+	  animation: fadeIn 1s;
+	}
+	/*### 애니메이션 ###*/
+	/* Add animation (fade in the popup) */
+	@-webkit-keyframes fadeIn {
+	  from {opacity: 0;} 
+	  to {opacity: 1;}
+	}
+	@keyframes fadeIn {
+	  from {opacity: 0;}
+	  to {opacity:1 ;}
+	}
     </style>
+    
+    
+    
   </head>
   <body id="chat-screen">
   
@@ -253,12 +243,12 @@
       <div class="popup" onclick="myFunction()">
         <i class="far fa-plus-square fa-lg"></i>
         <img class="popuptext" id="myPopup" src="/img/bear.jpg"
-			     alt="bears">
+			     alt="bears"></span>
       </div>
-
+      
       <div class="reply__column">
         <input type="text" name="send_msg" id="send_msg" placeholder="Write a message..."/>
-        <i class="far fa-smile-wink fa-lg apparatusWrap"></i>
+        <i class="far fa-smile-wink fa-lg"></i>
         <button id="msgSendBtn" style="background-color:#fae100; cursor:pointer;">
           <i class="fas fa-arrow-up"></i>
         </button>
@@ -268,6 +258,14 @@
     <div id="no-mobile">
       <span>Your screen is too big</span>
     </div>
+    
+    <script>
+	// 클릭시 보여주기 
+	function myFunction() {
+	  var popup = document.getElementById("myPopup");
+	  popup.classList.toggle("show");
+	}
+	</script>
     
     <!-- 로그인 확인 체크 페이지 -->
 	<%@include file="/WEB-INF/view/include/logincheck.jsp" %>
@@ -297,13 +295,7 @@
 				$('.alt-header__search-input').hide();
 			}
 		}
-		
-		// 클릭시 보여주기 
-		function myFunction() {
-		  var popup = document.getElementById("myPopup");
-		  popup.classList.toggle("show");
-		}
-		
+
 	</script>
   </body>
 </html>
