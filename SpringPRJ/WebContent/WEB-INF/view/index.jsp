@@ -56,6 +56,8 @@
 	  			}
 	  		}else{
 	  			console.log('not signed');
+				<%session.removeValue("isGauth");%>
+				console.log("isGauth? :" + <%=session.getAttribute("isGauth")%>);
 	  			gauthLoginState.value = 'Logout';
 	  		}
 		}
