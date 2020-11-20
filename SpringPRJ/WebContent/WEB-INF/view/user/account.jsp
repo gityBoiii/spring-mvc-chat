@@ -13,6 +13,7 @@
   	function blcokBox(){
   	  	var idBoxLink = document.getElementById("idBoxLink"); // 아이디 변경 박스
   	  	var passBox = document.getElementById("passBox"); // 비번 변경 박스
+  	  	console.log("isGauth? " + <%=session.getAttribute("isGauth")%>);
 	  	if (<%=session.getAttribute("isGauth")%> == 1) {
 	  		idBoxLink.href = '';
 	  		passBox.style.display = 'none';

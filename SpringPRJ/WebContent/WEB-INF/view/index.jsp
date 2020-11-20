@@ -32,7 +32,7 @@
 			  			// 폼만들기
 			  			var form = document.createElement('form');
 				        form.setAttribute('method', 'post'); 
-				        form.setAttribute('action', 'http://localhost:8080/user/usergauthProc.do');
+				        form.setAttribute('action', '/user/usergauthLoginProc.do');
 				        //params
 				        var params = {'user_email': profile.getEmail(),
 					                'user_pw': 'gauthUser',
@@ -56,10 +56,9 @@
 	  			}
 	  		}else{
 	  			console.log('not signed');
-				<%session.removeValue("isGauth");%>
-				console.log("isGauth? :" + <%=session.getAttribute("isGauth")%>);
+				<%//session.removeValue("isGauth");%>//Gauth세션 삭제
 	  			gauthLoginState.value = 'Logout';
-	  		}
+	  		}console.log("isGauth? :" + 'session.getAttribute("isGauth")%>');
 		}
 	    function init() {
 	  		console.log('init auth2');
