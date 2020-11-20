@@ -66,6 +66,7 @@ public class UserController {
 			pDTO.setUser_name(user_name);
 			pDTO.setUser_email(EncryptUtil.encAES128CBC(user_email));
 			pDTO.setUser_pw(EncryptUtil.encHashSHA256(user_pw));
+			pDTO.setIsGauth(1); //DTO에  gauth 판별 속성 넣기
 			
 			//유저 조회
 			rDTO = userService.getUserInfo(pDTO);
@@ -76,9 +77,8 @@ public class UserController {
 			if (rDTO != null) { // 로그인 성공(일반 로그인 가능하므로, DTO에 isgauth 속성 넣을 것 -> getuser_isgauth로 조회)
 				session.setAttribute("SS_USER_NAME", rDTO.getUser_name());
 				session.setAttribute("SS_USER_NO", rDTO.getUser_no());
-				//session.setAttribute("isGauth", 1);
+				session.setAttribute("isGauth", 1);
 				
-				//pDTO.setIsGauth(1); //DTO에  gauth 판별 속성 넣기
 				
 				msg="gauth 로그인 성공";
 				url="/friends.do";

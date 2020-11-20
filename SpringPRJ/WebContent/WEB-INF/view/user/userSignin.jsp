@@ -76,6 +76,11 @@
             <input type="submit" value="다음"  />
             <input type="button" value="이전" onClick="location.href='/index.do'" />
           </div>
+          
+          <div class="gauth" style='display:none'>
+          	<input type="text" name="isGauth" value="0"/>
+          </div>
+          
         </form>  
 	</div>
 

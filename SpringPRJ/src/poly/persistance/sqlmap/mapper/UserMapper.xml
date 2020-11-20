@@ -30,13 +30,15 @@
 		USER_PW,
 		USER_EMAIL,
 		REG_ID,
-		CHG_ID
+		CHG_ID,
+		ISGAUTH
 		)VALUES(
 		#{user_name},
 		#{user_pw},
 		#{user_email},
 		#{user_name},
-		#{user_name}
+		#{user_name},
+		#{isGauth}
 		)
 	</insert>
 

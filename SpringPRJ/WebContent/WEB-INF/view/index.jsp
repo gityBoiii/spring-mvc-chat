@@ -32,7 +32,7 @@
 			  			// 폼만들기
 			  			var form = document.createElement('form');
 				        form.setAttribute('method', 'post'); 
-				        form.setAttribute('action', '/user/usergauthLoginProc.do');
+				        form.setAttribute('action', '/user/usergauthProc.do');
 				        //params
 				        var params = {'user_email': profile.getEmail(),
 					                'user_pw': 'gauthUser',
@@ -56,9 +56,9 @@
 	  			}
 	  		}else{
 	  			console.log('not signed');
-				<%//session.removeValue("isGauth");%>//Gauth세션 삭제
+				<%session.removeValue("isGauth");%>//Gauth세션 삭제
 	  			gauthLoginState.value = 'Logout';
-	  		}console.log("isGauth? :" + 'session.getAttribute("isGauth")%>');
+	  		}console.log("isGauth? :" + <%=session.getAttribute("isGauth")%>);
 		}
 	    function init() {
 	  		console.log('init auth2');
@@ -78,9 +78,6 @@
 	  	} 
     </script>
     <style>
-     #gauthLoginState{
-     	display:none;
-     }
      .gooContainer{
      	display: flex;
 	    justify-content: space-between;
@@ -116,7 +113,7 @@
         <input type="text" name="user_email" placeholder="Email"/>
         <input type="password" name="user_pw" placeholder="Password"/>
         <input type="submit" value="Log In" style="background-color:#F9AC3A; cursor:pointer"/>
-        <input type="button" value="Sign In" data-onload="location.href='/user/userSignin.do'" style="background-color:#CD5604;cursor:pointer"/>
+        <input type="button" value="Sign In" onclick="location.href='/user/userSignin.do'" style="background-color:#CD5604;cursor:pointer"/>
         <div class="gooContainer">
 	        <!-- gauth 버튼, gauth 체크용 hidden 버튼 -->
 	        <div class="g-signin2" data-onsuccess="checkLoginStatus" data-theme="dark"></div>
@@ -124,7 +121,7 @@
         </div>
     </form>
     
-    	<form action="/user/usergauthLoginProc.do" method="post" id="gauthLoginState" value="Logout">
+    	<form action="/user/usergauthLoginProc.do" method="post" id="gauthLoginState" style='display:none' value="Logout">
 	    	<input type="hidden" name="user_email" />
 	    	<input type="hidden" name="user_pw" />
 	    </form>
