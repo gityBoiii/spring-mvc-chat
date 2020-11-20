@@ -158,6 +158,9 @@ public class UserController {
 
 			// 비밀번호는 절대로 복호화되지 않도록 해시 알고리즘으로 암호화
 			pDTO.setUser_pw(EncryptUtil.encHashSHA256(user_pw));
+			
+			// isGauth
+			pDTO.setIsGauth(0);
 			/*
 			 * ####################################################
 			 * 

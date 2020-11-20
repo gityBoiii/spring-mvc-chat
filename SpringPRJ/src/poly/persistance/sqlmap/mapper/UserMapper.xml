@@ -9,7 +9,7 @@
 		FROM
 		chat.user
 		WHERE
-		USER_EMAIL=#{user_email} AND USER_PW=#{user_pw}
+		USER_EMAIL=#{user_email} AND USER_PW=#{user_pw} AND ISGAUTH=#{isGauth}
 	</select>
 	
 	<select id="getUserInfoforNo" parameterType="UserDTO" resultType="UserDTO">
