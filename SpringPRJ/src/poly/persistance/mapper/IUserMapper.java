@@ -26,4 +26,6 @@ public interface IUserMapper {
 
 	UserDTO getUserInfoforNo(UserDTO pDTO) throws Exception;
 
+	int chgNameProc(UserDTO pDTO) throws Exception;
+
 }
