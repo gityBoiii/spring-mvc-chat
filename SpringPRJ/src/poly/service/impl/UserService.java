@@ -38,7 +38,7 @@ public class UserService implements IUserService {
 	public int chgNameProc(UserDTO pDTO) throws Exception {
 		
 		log.info("chgNameProc 서비스 실행!");
-		// 성공 :1, 실패:2, 기타에러:0
+		// 성공 :1, 실패:0
 		int res = 0;
 
 		// controller에서 같이 정상적으로 못 넘어오는 경우 대비

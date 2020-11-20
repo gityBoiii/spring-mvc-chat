@@ -66,8 +66,10 @@ public class UserController {
 		userService.chgNameProc(pDTO);
 		log.info("userService로 전달 성공!");
 		
+		session.setAttribute("SS_USER_NAME", user_name);
+		
 		model.addAttribute("msg", "이름변경 성공");
-		model.addAttribute("url", "/");
+		model.addAttribute("url", "/friends.do");
 
 		log.info(this.getClass().getName() + ".user/chgNameProc end");
 		return "/redirect";
