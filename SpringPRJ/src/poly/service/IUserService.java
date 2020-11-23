@@ -25,5 +25,7 @@ public interface IUserService {
 	UserDTO getUserInfoforNo(UserDTO pDTO) throws Exception;
 
 	int chgNameProc(UserDTO pDTO) throws Exception;
+
+	int chgPWProc(UserDTO pDTO) throws Exception;
 	
 }

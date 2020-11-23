@@ -35,6 +35,33 @@ public class UserService implements IUserService {
 	private Logger log = Logger.getLogger(this.getClass());
 	
 	@Override
+	public int chgPWProc(UserDTO pDTO) throws Exception {
+		log.info("chgPWProc 서비스 실행!");
+		// 성공 :1, 실패:0
+		int res = 0;
+
+		// controller에서 같이 정상적으로 못 넘어오는 경우 대비
+		if (pDTO == null) {
+			pDTO = new UserDTO();
+		}
+		log.info("DTO 만들기!");
+
+		// 실행
+		int success = userMapper.chgPWProc(pDTO);
+		log.info("맵퍼에서 실행!");
+		
+		// 결과 판별
+		if (success > 0) {
+			res = 1; // 1:성공
+		} else {
+			res = 0;
+		}		
+		log.info("res : " + res + "판별완료!");
+				
+		return res;
+	}
+	
+	@Override
 	public int chgNameProc(UserDTO pDTO) throws Exception {
 		
 		log.info("chgNameProc 서비스 실행!");

@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
 <mapper namespace="poly.persistance.mapper.IUserMapper">
+
+	<update id="chgPWProc" parameterType="UserDTO">
+		UPDATE user
+		SET user_pw =#{user_pw}
+		WHERE user_no =#{user_no};
+	</update>
+
 	<update id="chgNameProc" parameterType="UserDTO">
 		UPDATE user
 		SET USER_NAME =#{user_name},
