@@ -23,7 +23,8 @@
 	  		if(gauth.isSignedIn.get()){
 	  			gauthLoginState.value = 'Login';
 	  			console.log('signed');
-	  			$('span[id^="not_signed_"]').html('로그인됨');
+	  			//$('span[id^="not_signed_"]').html('구글로 로그인');
+	  			//$('span[id^="signed"]').html('로그인됨');
 	  			/* 로그인 정보 객체화 */
 	  			googleUser = gauth.currentUser.get();
 	  			profile = googleUser.getBasicProfile();
