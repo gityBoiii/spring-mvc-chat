@@ -15,6 +15,10 @@
     	var cnt = 0;
 	    function checkLoginStatus() {
 			var gauthLoginState = document.querySelector('#gauthLoginState');
+			if(cnt==0){
+				gapi.auth2.getAuthInstance().signOut();
+				console.log('gauth 자동 로그인 막기!!!');
+			}
 			cnt++;
 	  		if(gauth.isSignedIn.get()){
 	  			gauthLoginState.value = 'Login';

@@ -108,6 +108,10 @@
       </ul>
     </main>
 
+	<div>
+		<input type='file' id='fieldID' onchange="return ValidateFileUpload('fieldID')"/>
+	</div>
+	
     <div id="no-mobile">
       <span>Your screen is too big</span>
     </div>
