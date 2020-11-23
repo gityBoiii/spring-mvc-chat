@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"/>
   	<script src="/js/fontawesome.js"></script>
   	<script type = "text/javascript">
   	/* gauth일때, 버튼 비활성화, 안보이기 */
@@ -19,6 +20,16 @@
 	  		passBox.style.display = 'none';
 	  	}
   	}
+  	
+    function PreviewImage() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadPreview").src = oFREvent.target.result;
+        };
+    };
+  	
   	</script>
     <link rel="stylesheet" href="/css/styles.css" />
     <meta charset="UTF-8" />
@@ -64,8 +75,12 @@
       <ul class="settings-list">
 	  	<li class="settings__setting settings__setting-hover">
 	    	<div class="settings__setting-column">
-	        	<img src="/img/basic.jpg" class="user-component__avatar user-component__avatar--sm"/>
+				<label for="uploadImage">
+	        			<img id="uploadPreview" src="/img/basic.jpg" class="user-component__avatar user-component__avatar--sm"/>
+						<input type="file" id="uploadImage" onchange="PreviewImage();" style="display:none">
+				</label>
 	    	</div>
+	    	
 	        <div class="settings__setting-column">
 	          	<i class="fas fa-angle-right"></i>
 	    	</div>
@@ -108,10 +123,6 @@
       </ul>
     </main>
 
-	<div>
-		<input type='file' id='fieldID' onchange="return ValidateFileUpload('fieldID')"/>
-	</div>
-	
     <div id="no-mobile">
       <span>Your screen is too big</span>
     </div>
